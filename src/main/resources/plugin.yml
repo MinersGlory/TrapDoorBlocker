@@ -1,5 +1,4 @@
 name: TrapDoorBlocker
 version: ${project.version}
 main: de.bootko.trapdoorblocker.TrapDoorBlocker
-depend: [WorldGuard]
 authors: [Zethrus]
