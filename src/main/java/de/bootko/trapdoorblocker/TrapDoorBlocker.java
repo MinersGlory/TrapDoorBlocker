@@ -1,41 +1,46 @@
 package de.bootko.trapdoorblocker;
 
-import com.sk89q.worldguard.WorldGuard;
 import de.bootko.trapdoorblocker.listeners.TrapdoorInteractListener;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.logging.Logger;
 
 public class TrapDoorBlocker extends JavaPlugin {
 
-    Logger logger = getLogger();
+    public final Logger logger = getLogger();
+    File config = new File(this.getDataFolder(), "config.yml");
+
+
 
     @Override
     public void onEnable() {
 
-        logger.info("TrapDoorBlocker has been enabled.");
-        getServer().getPluginManager().registerEvents(new TrapdoorInteractListener(), this);
+        
+        if (config.exists()) {
+
+            if ((getServer().getPluginManager().getPlugin("WorldGuard") != null)) {
+                logger.info("WorldGuard 7 failed to load, please try again later.");
+            } else {
+                logger.info("TrapDoorBlocker has linked into WorldGuard and has been enabled.");
+                getServer().getPluginManager().registerEvents(new TrapdoorInteractListener(this), this);
+            }
+
+
+        } else {
+            this.saveDefaultConfig();
+            logger.info("Generated default config.yml");
+        }
     }
 
     @Override
     public void onDisable() {
+        logger.info("TrapDoorBlocker has been disabled.");
 
     }
 
     @Override
     public void onLoad() {
 
-    }
-
-    private WorldGuard getWorldGuard() {
-        Plugin wgp = getServer().getPluginManager().getPlugin("WorldGuard");
-
-        // If WorldGuard fails to load, tell console and do things.
-        if (wgp == null || !(wgp instanceof WorldGuard)) {
-            logger.info("WorldGuard 7 has not been found. Please download and try again");
-            
-        }
-        return (WorldGuard) wgp;
     }
 }
