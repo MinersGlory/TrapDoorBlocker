@@ -45,7 +45,7 @@ public class TrapdoorInteractListener implements Listener {
                 for (String blocked_region : blocked_regions) {
                     for ( ProtectedRegion region : set ) {
                         if (region.getId().equalsIgnoreCase(plugin.getConfig().getString(blocked_region))) {
-                            if(StateFlag.test(WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery().queryState(BukkitAdapter.adapt(currentLocation), (RegionAssociable) null, Flags.BLOCK_PLACE))) {
+                            if(StateFlag.test(WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery().queryState(BukkitAdapter.adapt(currentLocation), (RegionAssociable) null, Flags.BUILD))) {
                                 player.sendMessage("You can't touch this! ~MC Hammer");
                                 event.setCancelled(true);
                             }
