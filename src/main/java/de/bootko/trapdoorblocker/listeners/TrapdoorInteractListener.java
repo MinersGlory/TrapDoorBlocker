@@ -50,14 +50,10 @@ public class TrapdoorInteractListener implements Listener {
 
                             LocalPlayer wgPlayer = WorldGuardPlugin.inst().wrapPlayer(player);
                             if (!StateFlag.test(WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery().queryState(BukkitAdapter.adapt(currentLocation), (RegionAssociable) wgPlayer, Flags.BUILD))) {
-                                player.sendMessage("You can't touch this! ~MC Hammer");
                                 event.setCancelled(true);
                             }
-
-                            player.sendMessage("Was a protected region!");
-
                         }
-                        }
+                    }
                 }
             }
         }
