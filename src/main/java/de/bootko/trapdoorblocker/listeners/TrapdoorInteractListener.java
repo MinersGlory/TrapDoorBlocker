@@ -1,7 +1,9 @@
 package de.bootko.trapdoorblocker.listeners;
 
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.association.RegionAssociable;
 import com.sk89q.worldguard.protection.flags.Flags;
@@ -42,17 +44,20 @@ public class TrapdoorInteractListener implements Listener {
                 RegionManager rm  = WorldGuard.getInstance().getPlatform().getRegionContainer().get(BukkitAdapter.adapt(world));
                 ApplicableRegionSet set = rm.getApplicableRegions( BukkitAdapter.asVector(currentLocation));
                 List<String> blocked_regions = plugin.getConfig().getStringList("regions.blocked-regions");
-                for (String blocked_region : blocked_regions) {
-                    for ( ProtectedRegion region : set ) {
-                        if (region.getId().equalsIgnoreCase(plugin.getConfig().getString(blocked_region))) {
-                            if(StateFlag.test(WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery().queryState(BukkitAdapter.adapt(currentLocation), (RegionAssociable) null, Flags.BUILD))) {
+                if (blocked_regions != null) {
+                    for (ProtectedRegion region : set) {
+                        if (blocked_regions.contains(region.getId())) {
+
+                            LocalPlayer wgPlayer = WorldGuardPlugin.inst().wrapPlayer(player);
+                            if (!StateFlag.test(WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery().queryState(BukkitAdapter.adapt(currentLocation), (RegionAssociable) wgPlayer, Flags.BUILD))) {
                                 player.sendMessage("You can't touch this! ~MC Hammer");
                                 event.setCancelled(true);
                             }
-                            event.setCancelled(false);
+
+                            player.sendMessage("Was a protected region!");
 
                         }
-                    }
+                        }
                 }
             }
         }
