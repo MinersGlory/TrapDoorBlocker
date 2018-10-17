@@ -16,20 +16,21 @@ public class TrapDoorBlocker extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        
+
         if (config.exists()) {
 
             if ((getServer().getPluginManager().getPlugin("WorldGuard") != null)) {
-                logger.info("WorldGuard 7 failed to load, please try again later.");
-            } else {
                 logger.info("TrapDoorBlocker has linked into WorldGuard and has been enabled.");
                 getServer().getPluginManager().registerEvents(new TrapdoorInteractListener(this), this);
+            } else {
+                logger.info("WorldGuard 7 failed to load, please try again later.");
             }
 
 
         } else {
             this.saveDefaultConfig();
             logger.info("Generated default config.yml");
+            getServer().getPluginManager().registerEvents(new TrapdoorInteractListener(this), this);
         }
     }
 
