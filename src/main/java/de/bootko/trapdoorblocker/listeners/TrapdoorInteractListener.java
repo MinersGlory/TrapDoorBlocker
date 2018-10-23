@@ -51,9 +51,8 @@ public class TrapdoorInteractListener implements Listener {
                             LocalPlayer wgPlayer = WorldGuardPlugin.inst().wrapPlayer(player);
                             if (!StateFlag.test(WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery().queryState(BukkitAdapter.adapt(currentLocation), (RegionAssociable) wgPlayer, Flags.BUILD))) {
                                 event.setCancelled(true);
-                            }
-                            // If can build allow interaction
-                            if (StateFlag.test(WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery().queryState(BukkitAdapter.adapt(currentLocation), (RegionAssociable) wgPlayer, Flags.BUILD))) {
+                            } else {
+                                
                                 event.setCancelled(false);
                             }
 
