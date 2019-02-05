@@ -6,7 +6,7 @@ import de.bootko.trapdoorblocker.util.WorldUtil;
 import org.bukkit.Location;
 
 public class RegionListener {
-    // Not yet used
+    // Not yet used, will be for checking if the user can build in the region
 
     Location loc = null;
 

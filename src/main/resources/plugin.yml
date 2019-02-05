@@ -2,5 +2,5 @@ name: TrapDoorBlocker
 version: ${project.version}
 api-version: 1.13
 main: de.bootko.trapdoorblocker.TrapDoorBlocker
-softdepend: [WorldGuard]
+depend: [WorldGuard]
 authors: [Zethrus]
