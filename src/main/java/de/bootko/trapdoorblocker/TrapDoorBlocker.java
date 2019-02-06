@@ -8,6 +8,8 @@ import java.util.logging.Logger;
 
 public class TrapDoorBlocker extends JavaPlugin {
 
+    public static TrapDoorBlocker plugin;
+
     public final Logger logger = getLogger();
     File config = new File(this.getDataFolder(), "config.yml");
 
@@ -15,6 +17,7 @@ public class TrapDoorBlocker extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        plugin = this;
 
 
         if (config.exists()) {
@@ -37,11 +40,21 @@ public class TrapDoorBlocker extends JavaPlugin {
     @Override
     public void onDisable() {
         logger.info("TrapDoorBlocker has been disabled.");
+        plugin = null;
 
     }
 
     @Override
     public void onLoad() {
 
+    }
+
+    /**
+     * Get an instance of the main class
+     *
+     * @return an instance of the main class
+     */
+    public static TrapDoorBlocker getPlugin() {
+        return plugin;
     }
 }
