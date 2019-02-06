@@ -32,7 +32,6 @@ public class FlagUtil {
                     // Debug to see what region.getId returns
                     plugin.logger.info(ChatColor.DARK_RED + "Region:" + ChatColor.WHITE + region.getId());
                 }
-                return false;
             }
             ProtectedRegion global = WorldGuard.getInstance().getPlatform().getRegionContainer().get(BukkitAdapter.adapt(player.getLocation().getWorld())).getRegion(ProtectedRegion.GLOBAL_REGION);
             FlagValueCalculator calc= new FlagValueCalculator(checkForRegions, global);
@@ -42,10 +41,9 @@ public class FlagUtil {
             } else {
                 return false;
             }
-        } else {
-            plugin.getLogger().info("blocked_regions is null, please specify a region!");
-            return false;
         }
+        plugin.getLogger().info("blocked_regions is null, please specify a region!");
+        return false;
 
     }
 
