@@ -21,7 +21,7 @@ public class FlagUtil {
     public static boolean testFlag(Player player, StateFlag flag) {
         ApplicableRegionSet regions = WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery()
                 .getApplicableRegions(BukkitAdapter.adapt(player.getLocation()));
-        ArrayList<String> checkedRegions = new ArrayList<String>();
+        List<String> checkedRegions = new ArrayList<String>();
         List<ProtectedRegion> checkForRegions = new ArrayList<>();
         List<String> blocked_regions = plugin.getConfig().getStringList("regions.blocked-regions");
         if (blocked_regions != null) {
@@ -42,9 +42,10 @@ public class FlagUtil {
             } else {
                 return false;
             }
+        } else {
+            plugin.getLogger().info("blocked_regions is null, please specify a region!");
+            return false;
         }
-        plugin.getLogger().info("blocked_regions is null, please specify a region!");
-        return false;
 
     }
 
