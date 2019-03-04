@@ -35,7 +35,7 @@ public class FlagUtil {
             }
             ProtectedRegion global = WorldGuard.getInstance().getPlatform().getRegionContainer().get(BukkitAdapter.adapt(player.getLocation().getWorld())).getRegion(ProtectedRegion.GLOBAL_REGION);
             FlagValueCalculator calc= new FlagValueCalculator(checkForRegions, global);
-            State check = calc.queryValue(null, flag);
+            State check = calc.queryState(null, flag);
             if (check == State.ALLOW) {
                 return true;
             } else {

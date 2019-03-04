@@ -45,7 +45,6 @@ public class TrapdoorInteractListener implements Listener {
                 } else {
                     event.setCancelled(false);
                 }
-
             }
         }
     }
